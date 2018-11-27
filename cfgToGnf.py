@@ -1,7 +1,7 @@
 # cfg = {'S': {'P'}, 'P': {'aPb', 'e'}} #result not short as expected
-# cfg = {'S': {'ASB'}, 'A': {'aAS', 'a', 'e'}, 'B': {'SbS', 'A', 'bb'}}  # good ex
+cfg = {'S': {'ASB'}, 'A': {'aAS', 'a', 'e'}, 'B': {'SbS', 'A', 'bb'}}  # good ex
 # cfg = {'S': {'ABCd'}, 'A': {'BC'}, 'B': {'bB', 'e'}, 'C': {'cC', 'e'}} #exist non-reachable in result
-cfg = {'S': {'XA', 'BB'}, 'B': {'b', 'SB'}, 'X': {'b'}, 'A': {'a'}} #exist non-reachable in result
+# cfg = {'S': {'XA', 'BB'}, 'B': {'b', 'SB'}, 'X': {'b'}, 'A': {'a'}} #exist non-reachable in result
 # cfg = {'S': {'Ab', 'Be', 'Df'}, 'A': {'a', 'S', 'C'},'C': {'c', 'BC', 'e'}, 'E': {'aA', 'e'}, 'D': {'aDc'}} #exist non-reachable in result
 # cfg = {'S': {'Aa'}, 'A': {'a', 'BC'}, 'P': {'APa', 'B'}, 'B': {'aBC'}} #goood ex
 # cfg = {'S': {'aXbX'}, 'X': {'aY', 'bY', 'e'}, 'Y': {'X', 'c'}} #good ex
@@ -33,7 +33,7 @@ def get(a):
 
 
 def remove_e():
-    while(True):
+    while True:
         e = set()
         for i in cfg:
             for j in cfg[i].copy():
@@ -60,7 +60,7 @@ def remove_e():
 def remove_unit_production():
     for i in cfg:
         is_found = True
-        while(is_found):
+        while is_found:
             is_found = False
             for j in cfg[i].copy():
                 if len(j) == 1 and j < 'a':
@@ -75,7 +75,7 @@ def remove_unit_production():
 def remove_non_reachable():
     start = {'S'}
     queue = ['S']
-    while(queue):
+    while queue:
         i = queue.pop()
         for j in cfg[i]:
             for k in j:
@@ -97,7 +97,7 @@ def remove_useless():
     for i in cfg:
         start.add(i)
     is_found = True
-    while(is_found):
+    while is_found:
         is_found = False
         for i in cfg.copy():
             for j in cfg[i].copy():
@@ -109,10 +109,10 @@ def remove_useless():
                         else:
                             del cfg[i]
                             start.remove(i)
-    print('1.3.1: Removed varibles that have no production')
+    print('1.3.1. Removed varibles that have no production')
     output()
 
-    while(True):
+    while True:
         recur = set()
         for i in cfg.copy():
             if i == 'S':
@@ -131,11 +131,11 @@ def remove_useless():
                         cfg[i].remove(j)
         if len(recur) == 0:
             break
-    print('1.3.2: Removed varibles that recur forever')
+    print('1.3.2. Removed varibles that recur forever')
     output()
 
     remove_non_reachable()
-    print('1.3.3: Removed varibles that non-reachable')
+    print('1.3.3. Removed varibles that non-reachable')
     output()
 
 
@@ -166,7 +166,7 @@ def eleminate_left_recur():
     for i in cfg.copy():
         is_found = True
         recur = set()
-        while(is_found):
+        while is_found:
             is_found = False
             for j in cfg[i].copy():
                 if j[0] < 'a':
@@ -190,7 +190,7 @@ def eleminate_left_recur():
 def find_and_convert():
     for i in cfg:
         is_found = True
-        while(is_found):
+        while is_found:
             is_found = False
             for j in cfg[i].copy():
                 if j[0] < 'a':
@@ -213,21 +213,21 @@ print('Initial CFG')
 output()
 
 remove_e()
-print('1.1: Removed e')
+print('1.1. Removed e')
 output()
 
 remove_unit_production()
-print('1.2: Removed unit production')
+print('1.2. Removed unit production')
 output()
 
 remove_useless()
 
 eleminate_left_recur()
-print('2: Eliminated direct and indirect left recursion')
+print('2. Eliminated direct and indirect left recursion')
 output()
 
 remove_terminal()
-print('3: Removed terminal')
+print('3. Removed terminal')
 output()
 
 find_and_convert()
